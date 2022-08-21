@@ -1,43 +1,15 @@
 <template>
     <div>
-        <ul class="news-list">
-            <li v-for="i in askItems" v-bind:key="i.id" class="post">
-            <!-- 포인트 영역 -->
-            <div class="points">
-                {{ i.points }}
-            </div>
-            <!-- 기타 정보 영역 -->
-            <div>
-                <p class="news-title">
-                    <router-link v-bind:to="`/item/${i.id}`">
-                    {{ i.title }}
-                    </router-link>
-                </p>
-                <small class="link-text">
-                    - {{ i.time_ago }} by
-                    <router-link class="link-text" v-bind:to="`/user/${i.user}`">
-                    {{ i.user }}
-                    </router-link>
-                </small>
-            </div>
-            </li>
-        </ul>
+        <list-item></list-item>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import {} from '../store/index.js'
+import ListItem from '../components/ListItem.vue'
 export default {
-    computed: {
-            ...mapGetters({
-                askItems: 'fetchedAsk',
-            })
-        },
-    created() {
-        this.$store.dispatch('FETCH_ASK')
-    },
-
+    components: {
+        ListItem,
+    }
 }
 </script>
 

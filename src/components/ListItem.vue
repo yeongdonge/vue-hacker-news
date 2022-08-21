@@ -1,0 +1,104 @@
+<template>
+  <div>
+    <ul class="news-list">
+      <li v-for="i, count in listItems" v-bind:key="i.id" class="post">
+        <!-- 포인트 영역 -->
+        <div class="points">
+          {{ i.points || count }}
+        </div>
+        <!-- 기타 정보 영역 -->
+        <div>
+          <p class="news-title">
+            <template v-if="i.domain">
+              <a v-bind:href="i.url">
+                {{ i.title }}
+              </a>
+            </template>
+            <template v-else>
+              <router-link v-bind:to="`/item/${i.id}`">
+                {{ i.title }}
+              </router-link>
+            </template>
+          </p>
+          <small class="link-text">
+            - {{ i.time_ago }} by
+            <router-link
+              v-if="i.user"
+              class="link-text"
+              v-bind:to="`/user/${i.user}`">
+              {{ i.user }}
+            </router-link>
+            <a v-bind:href="i.url" v-else>
+              {{ i.domain }}
+            </a>
+          </small>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  created() {
+    var name = this.$route.name;
+    if (name === "news") {
+      name = "FETCH_NEWS";
+    } else if (name === "ask") {
+      name = "FETCH_ASK";
+    } else if (name === "jobs") {
+      name = "FETCH_JOBS";
+    }
+    this.$store.dispatch(name);
+    // const name = this.$route.name;
+    // if(name ==='news') {
+    //     this.$store.dispatch('FETCH_NEWS');
+    // } else if(name === 'ask') {
+    //     this.$store.dispatch('FETCH_ASK');
+    // } else if(name === 'jobs') {
+    //     this.$store.dispatch('FETCH_JOBS');
+    // }
+  },
+  computed: {
+    listItems() {
+      const name = this.$route.name;
+      if (name === "news") {
+        return this.$store.state.news;
+      } else if (name === "ask") {
+        return this.$store.state.ask;
+      } else if (name === "jobs") {
+        return this.$store.state.jobs;
+      } else {
+        return this.$store.state.ask;
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+.news-list {
+  margin: 0;
+  padding: 0;
+}
+.post {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+.points {
+  width: 80px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #42b883;
+}
+.news-title {
+  margin: 0;
+}
+.link-text {
+  color: #828282;
+}
+</style>
