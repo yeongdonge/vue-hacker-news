@@ -4,7 +4,7 @@
       <li v-for="i, count in listItems" v-bind:key="i.id" class="post">
         <!-- 포인트 영역 -->
         <div class="points">
-          {{ i.points || count }}
+          {{ i.points || count + 1 }}
         </div>
         <!-- 기타 정보 영역 -->
         <div>
@@ -40,25 +40,6 @@
 
 <script>
 export default {
-  created() {
-    var name = this.$route.name;
-    if (name === "news") {
-      name = "FETCH_NEWS";
-    } else if (name === "ask") {
-      name = "FETCH_ASK";
-    } else if (name === "jobs") {
-      name = "FETCH_JOBS";
-    }
-    this.$store.dispatch(name);
-    // const name = this.$route.name;
-    // if(name ==='news') {
-    //     this.$store.dispatch('FETCH_NEWS');
-    // } else if(name === 'ask') {
-    //     this.$store.dispatch('FETCH_ASK');
-    // } else if(name === 'jobs') {
-    //     this.$store.dispatch('FETCH_JOBS');
-    // }
-  },
   computed: {
     listItems() {
       const name = this.$route.name;
