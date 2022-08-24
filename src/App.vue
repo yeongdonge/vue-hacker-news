@@ -50,7 +50,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #42b883;
+  color: black;
   text-decoration: underline;
 }
 a.router-link-exact-active  {
@@ -63,7 +63,7 @@ a.link-text  {
 /* Router Transition */
 .page-enter-active,
 .page-leave-active {
-  transition: opacity .5s;
+  transition: opacity .01s;
 }
 
 .page-enter-from,

@@ -23,23 +23,26 @@ export default {
   //     .catch((error) => console.log(error));
   // },
   FETCH_USER( { commit }, userName) {
-    fetchUserInfo(userName)
+    return fetchUserInfo(userName)
     .then(({ data }) => {
       commit('SET_USER', data);
+      return data;
     })
     .catch((error) => console.log(error));
   },
   FETCH_ITEM( { commit }, id) {
-    fetchItemInfo(id)
+    return fetchItemInfo(id)
     .then(({ data }) => {
       commit('SET_ITEM', data);
+      return data;
     })
     .catch((error) => console.log(error))
   },
   FETCH_LIST( {commit}, pageName) {
-    fetchList(pageName)
+    return fetchList(pageName)
     .then(( {data}) => {
       commit('SET_LIST', data);
+      return data;
     })
     .catch((error) => console.log(error))
   },
